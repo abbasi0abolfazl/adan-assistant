@@ -1,0 +1,117 @@
+{
+  "mode": "deterministic_reference_not_live_llm",
+  "generated_at": "2026-10-17T14:00:18.842994+00:00",
+  "note": "SQL strings and rate in this CHECK SCRIPT are reference inputs, not model-generated answers.",
+  "pdfs": 3,
+  "pages": 6,
+  "chunks": 6,
+  "january": {
+    "id": "sql_1",
+    "generated_sql": "SELECT SUM(i.quantity*i.unit_price_irr-i.discount_irr) AS revenue_irr\nFROM orders o JOIN order_items i ON i.order_id=o.order_id\nWHERE o.status=? AND o.order_date>=? AND o.order_date<?",
+    "executed_sql": "SELECT * FROM (SELECT SUM(i.quantity*i.unit_price_irr-i.discount_irr) AS revenue_irr\nFROM orders o JOIN order_items i ON i.order_id=o.order_id\nWHERE o.status=? AND o.order_date>=? AND o.order_date<?) AS result LIMIT 101",
+    "parameters": [
+      "completed",
+      "2026-01-01",
+      "2026-02-01"
+    ],
+    "columns": [
+      "revenue_irr"
+    ],
+    "rows": [
+      {
+        "revenue_irr": 100000000
+      }
+    ],
+    "row_count": 1,
+    "truncated": false,
+    "elapsed_ms": 3,
+    "currency": "IRR",
+    "date_calendar": "Gregorian"
+  },
+  "february": {
+    "id": "sql_1",
+    "generated_sql": "SELECT SUM(i.quantity*i.unit_price_irr-i.discount_irr) AS revenue_irr\nFROM orders o JOIN order_items i ON i.order_id=o.order_id\nWHERE o.status=? AND o.order_date>=? AND o.order_date<?",
+    "executed_sql": "SELECT * FROM (SELECT SUM(i.quantity*i.unit_price_irr-i.discount_irr) AS revenue_irr\nFROM orders o JOIN order_items i ON i.order_id=o.order_id\nWHERE o.status=? AND o.order_date>=? AND o.order_date<?) AS result LIMIT 101",
+    "parameters": [
+      "completed",
+      "2026-02-01",
+      "2026-03-01"
+    ],
+    "columns": [
+      "revenue_irr"
+    ],
+    "rows": [
+      {
+        "revenue_irr": 125000000
+      }
+    ],
+    "row_count": 1,
+    "truncated": false,
+    "elapsed_ms": 0,
+    "currency": "IRR",
+    "date_calendar": "Gregorian"
+  },
+  "growth": {
+    "expression": "(current-previous)/previous*100",
+    "variables": {
+      "current": "125000000",
+      "previous": "100000000"
+    },
+    "result": "25.00",
+    "rounded_result": "25.00",
+    "precision": 2,
+    "rounding": "ROUND_HALF_UP"
+  },
+  "reserve": {
+    "expression": "revenue*rate/100",
+    "variables": {
+      "revenue": "125000000",
+      "rate": "5"
+    },
+    "result": "6250000",
+    "rounded_result": "6250000",
+    "precision": 0,
+    "rounding": "ROUND_HALF_UP"
+  },
+  "reserve_source": {
+    "source_id": "sales_handbook:p2:c1:b5286c86",
+    "filename": "sales_handbook.pdf",
+    "title": "Sales reporting and provisional reserve",
+    "page": 2,
+    "chunk": 1,
+    "text": "2. Provisional return reserve The provisional return reserve rate is 5% of completed-order sales revenue for the selected reporting period. Multiply the period revenue by the rate and divide by 100 to estimate the reserve. The reserve is a planning estimate, not an observed refund amount, an accounting liability determination or an actual loss. It must be labelled provisional in the answer. Monthly revenue growth is defined as the current month revenue minus the previous month revenue, divided by the previous month revenue, multiplied by 100. When the previous month revenue is zero, percentage growth is undefined and must not be reported as zero. For a reserve or growth demonstration, extract the monetary amounts from the database and perform the final arithmetic with the Calculator Tool. Round displayed percentages to 2 decimal places and reserve amounts to whole rials.",
+    "document_sha256": "b5286c868da3dae038db426437c6f4139e95d40daf0e921a2b2b89dce811b202"
+  },
+  "rejected_queries": [
+    {
+      "sql": "DELETE FROM orders",
+      "blocked": true,
+      "code": "SQL_FORBIDDEN"
+    },
+    {
+      "sql": "DROP TABLE orders",
+      "blocked": true,
+      "code": "SQL_FORBIDDEN"
+    },
+    {
+      "sql": "PRAGMA writable_schema=ON",
+      "blocked": true,
+      "code": "SQL_FORBIDDEN"
+    },
+    {
+      "sql": "SELECT load_extension('/tmp/evil') FROM orders",
+      "blocked": true,
+      "code": "SQL_FORBIDDEN"
+    },
+    {
+      "sql": "SELECT name FROM sqlite_master",
+      "blocked": true,
+      "code": "SQL_FORBIDDEN"
+    },
+    {
+      "sql": "SELECT nonexistent_column FROM orders",
+      "blocked": true,
+      "code": "SQL_INVALID"
+    }
+  ]
+}

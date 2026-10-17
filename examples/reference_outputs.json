@@ -1,0 +1,364 @@
+{
+  "mode": "scripted_model_contract_examples",
+  "warning": "LLM replies and retrieval ranking are TEST FIXTURES. SQLite execution, PDF extraction, quote validation and calculator arithmetic actually ran. These are NOT live LLM outputs.",
+  "live_capture_command": "python scripts/evaluate_live.py --live",
+  "examples": [
+    {
+      "name": "rag",
+      "request": {
+        "question": "What does the sales handbook say about the provisional reserve?",
+        "language": "en"
+      },
+      "response": {
+        "request_id": "fixture-rag",
+        "status": "answered",
+        "answer": "The provisional reserve is 5% of completed-order revenue.",
+        "route": "documents",
+        "sources": [
+          {
+            "source_id": "sales_handbook:p2:c1:b5286c86",
+            "filename": "sales_handbook.pdf",
+            "title": "Sales reporting and provisional reserve",
+            "page": 2,
+            "score": 0.8,
+            "document_sha256": "b5286c868da3dae038db426437c6f4139e95d40daf0e921a2b2b89dce811b202",
+            "quote": "The provisional return reserve rate is 5% of completed-order sales revenue for the selected reporting period."
+          }
+        ],
+        "sql": [],
+        "calculations": [],
+        "trace": [
+          {
+            "step": 1,
+            "component": "coordinator",
+            "action": "planning",
+            "elapsed_ms": 0,
+            "details": {}
+          },
+          {
+            "step": 2,
+            "component": "coordinator",
+            "action": "route_selected",
+            "elapsed_ms": 0,
+            "details": {
+              "route": "documents",
+              "calculator": false
+            }
+          },
+          {
+            "step": 3,
+            "component": "document_agent",
+            "action": "started",
+            "elapsed_ms": 0,
+            "details": {}
+          },
+          {
+            "step": 4,
+            "component": "document_agent",
+            "action": "semantic_retrieval_test_double",
+            "elapsed_ms": 0,
+            "details": {
+              "candidates": 1
+            }
+          },
+          {
+            "step": 5,
+            "component": "document_agent",
+            "action": "grounded_answer",
+            "elapsed_ms": 1,
+            "details": {
+              "source_ids": [
+                "sales_handbook:p2:c1:b5286c86"
+              ]
+            }
+          },
+          {
+            "step": 6,
+            "component": "coordinator",
+            "action": "finished",
+            "elapsed_ms": 1,
+            "details": {
+              "status": "answered"
+            }
+          }
+        ],
+        "warnings": []
+      }
+    },
+    {
+      "name": "database",
+      "request": {
+        "question": "What was completed-order revenue for February 2026?",
+        "language": "en"
+      },
+      "response": {
+        "request_id": "fixture-database",
+        "status": "answered",
+        "answer": "February 2026 completed-order revenue is 125,000,000 IRR.",
+        "route": "database",
+        "sources": [],
+        "sql": [
+          {
+            "id": "sql_1",
+            "generated_sql": "SELECT SUM(i.quantity*i.unit_price_irr-i.discount_irr) AS revenue_irr\nFROM orders o JOIN order_items i ON i.order_id=o.order_id\nWHERE o.status=? AND o.order_date>=? AND o.order_date<?",
+            "executed_sql": "SELECT * FROM (SELECT SUM(i.quantity*i.unit_price_irr-i.discount_irr) AS revenue_irr\nFROM orders o JOIN order_items i ON i.order_id=o.order_id\nWHERE o.status=? AND o.order_date>=? AND o.order_date<?) AS result LIMIT 101",
+            "parameters": [
+              "completed",
+              "2026-02-01",
+              "2026-03-01"
+            ],
+            "columns": [
+              "revenue_irr"
+            ],
+            "rows": [
+              {
+                "revenue_irr": 125000000
+              }
+            ],
+            "row_count": 1,
+            "truncated": false,
+            "elapsed_ms": 0,
+            "currency": "IRR",
+            "date_calendar": "Gregorian"
+          }
+        ],
+        "calculations": [],
+        "trace": [
+          {
+            "step": 1,
+            "component": "coordinator",
+            "action": "planning",
+            "elapsed_ms": 0,
+            "details": {}
+          },
+          {
+            "step": 2,
+            "component": "coordinator",
+            "action": "route_selected",
+            "elapsed_ms": 0,
+            "details": {
+              "route": "database",
+              "calculator": false
+            }
+          },
+          {
+            "step": 3,
+            "component": "database_agent",
+            "action": "started",
+            "elapsed_ms": 0,
+            "details": {}
+          },
+          {
+            "step": 4,
+            "component": "database_agent",
+            "action": "sql_generated",
+            "elapsed_ms": 0,
+            "details": {
+              "attempt": 1
+            }
+          },
+          {
+            "step": 5,
+            "component": "database_agent",
+            "action": "read_only_sql_executed",
+            "elapsed_ms": 0,
+            "details": {
+              "row_count": 1,
+              "truncated": false
+            }
+          },
+          {
+            "step": 6,
+            "component": "coordinator",
+            "action": "finished",
+            "elapsed_ms": 1,
+            "details": {
+              "status": "answered"
+            }
+          }
+        ],
+        "warnings": []
+      }
+    },
+    {
+      "name": "hybrid",
+      "request": {
+        "question": "Calculate the provisional reserve for February 2026 revenue.",
+        "language": "en"
+      },
+      "response": {
+        "request_id": "fixture-hybrid",
+        "status": "answered",
+        "answer": "The provisional return reserve is 6,250,000 IRR; it is not an actual refund total.",
+        "route": "hybrid",
+        "sources": [
+          {
+            "source_id": "sales_handbook:p2:c1:b5286c86",
+            "filename": "sales_handbook.pdf",
+            "title": "Sales reporting and provisional reserve",
+            "page": 2,
+            "score": 0.8,
+            "document_sha256": "b5286c868da3dae038db426437c6f4139e95d40daf0e921a2b2b89dce811b202",
+            "quote": "The provisional return reserve rate is 5% of completed-order sales revenue for the selected reporting period."
+          }
+        ],
+        "sql": [
+          {
+            "id": "sql_1",
+            "generated_sql": "SELECT SUM(i.quantity*i.unit_price_irr-i.discount_irr) AS revenue_irr\nFROM orders o JOIN order_items i ON i.order_id=o.order_id\nWHERE o.status=? AND o.order_date>=? AND o.order_date<?",
+            "executed_sql": "SELECT * FROM (SELECT SUM(i.quantity*i.unit_price_irr-i.discount_irr) AS revenue_irr\nFROM orders o JOIN order_items i ON i.order_id=o.order_id\nWHERE o.status=? AND o.order_date>=? AND o.order_date<?) AS result LIMIT 101",
+            "parameters": [
+              "completed",
+              "2026-02-01",
+              "2026-03-01"
+            ],
+            "columns": [
+              "revenue_irr"
+            ],
+            "rows": [
+              {
+                "revenue_irr": 125000000
+              }
+            ],
+            "row_count": 1,
+            "truncated": false,
+            "elapsed_ms": 0,
+            "currency": "IRR",
+            "date_calendar": "Gregorian"
+          }
+        ],
+        "calculations": [
+          {
+            "tool": "calculator",
+            "call_id": "test-call-1",
+            "expression": "sql_r0_c0_revenue_irr*doc_reserve_percent/100",
+            "variables": {
+              "sql_r0_c0_revenue_irr": "125000000",
+              "doc_reserve_percent": "5"
+            },
+            "result": "6250000",
+            "rounded_result": "6250000",
+            "precision": 0,
+            "rounding": "ROUND_HALF_UP",
+            "origins": {
+              "sql_r0_c0_revenue_irr": {
+                "source": "sql_1",
+                "row": 0,
+                "column": "revenue_irr",
+                "value": "125000000"
+              },
+              "doc_reserve_percent": {
+                "source": "document",
+                "value": "5",
+                "source_id": "sales_handbook:p2:c1:b5286c86",
+                "quote": "The provisional return reserve rate is 5% of completed-order sales revenue for the selected reporting period."
+              }
+            }
+          }
+        ],
+        "trace": [
+          {
+            "step": 1,
+            "component": "coordinator",
+            "action": "planning",
+            "elapsed_ms": 0,
+            "details": {}
+          },
+          {
+            "step": 2,
+            "component": "coordinator",
+            "action": "route_selected",
+            "elapsed_ms": 0,
+            "details": {
+              "route": "hybrid",
+              "calculator": true
+            }
+          },
+          {
+            "step": 3,
+            "component": "document_agent",
+            "action": "started",
+            "elapsed_ms": 0,
+            "details": {}
+          },
+          {
+            "step": 4,
+            "component": "document_agent",
+            "action": "semantic_retrieval_test_double",
+            "elapsed_ms": 0,
+            "details": {
+              "candidates": 1
+            }
+          },
+          {
+            "step": 5,
+            "component": "document_agent",
+            "action": "grounded_answer",
+            "elapsed_ms": 0,
+            "details": {
+              "source_ids": [
+                "sales_handbook:p2:c1:b5286c86"
+              ]
+            }
+          },
+          {
+            "step": 6,
+            "component": "database_agent",
+            "action": "started",
+            "elapsed_ms": 0,
+            "details": {}
+          },
+          {
+            "step": 7,
+            "component": "database_agent",
+            "action": "sql_generated",
+            "elapsed_ms": 0,
+            "details": {
+              "attempt": 1
+            }
+          },
+          {
+            "step": 8,
+            "component": "database_agent",
+            "action": "read_only_sql_executed",
+            "elapsed_ms": 1,
+            "details": {
+              "row_count": 1,
+              "truncated": false
+            }
+          },
+          {
+            "step": 9,
+            "component": "calculator",
+            "action": "tool_call_received",
+            "elapsed_ms": 1,
+            "details": {
+              "name": "calculator",
+              "call_id": "test-call-1"
+            }
+          },
+          {
+            "step": 10,
+            "component": "calculator",
+            "action": "executed",
+            "elapsed_ms": 1,
+            "details": {
+              "expression": "sql_r0_c0_revenue_irr*doc_reserve_percent/100",
+              "result": "6250000"
+            }
+          },
+          {
+            "step": 11,
+            "component": "coordinator",
+            "action": "finished",
+            "elapsed_ms": 1,
+            "details": {
+              "status": "answered"
+            }
+          }
+        ],
+        "warnings": []
+      }
+    }
+  ]
+}

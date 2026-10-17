@@ -1,0 +1,22 @@
+# Exact versions of the locally tested dependency closure (Python 3.13).
+# Base-image digest and wheel hashes are not locked; see docs/DECISIONS.md.
+annotated-doc==0.0.4
+annotated-types==0.8.0
+anyio==4.13.0
+certifi==2026.5.20
+click==8.1.8
+fastapi==0.128.2
+h11==0.16.0
+httpcore==1.0.9
+httpx==0.28.1
+idna==3.17
+numpy==2.3.5
+pydantic==2.13.5
+pydantic-core==2.46.5
+pydantic-settings==2.14.1
+pypdf==5.9.0
+python-dotenv==1.2.2
+starlette==0.50.0
+typing-extensions==4.16.0
+typing-inspection==0.4.4
+uvicorn==0.48.0

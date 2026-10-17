@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+runtime/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+.DS_Store
+# Actual evaluation reports are intentionally NOT ignored; inspect before committing.

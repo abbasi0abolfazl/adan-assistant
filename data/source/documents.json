@@ -1,0 +1,74 @@
+[
+  {
+    "filename": "returns_policy.pdf",
+    "title": "Returns and warranty",
+    "pages": [
+      {
+        "heading": "1. Returns eligibility",
+        "paragraphs": [
+          "Nava is a fictional electronics retailer. These documents are demonstration fixtures, not the policy of a real business. Policy version 1.0 applies to the sample dataset in this repository.",
+          "Customers may request a return within 7 calendar days after delivery. A return request must include the order number, the reason for return and a photograph when damage is reported. The product must include its original accessories and packaging.",
+          "An opened in-ear headset cannot be returned for a change of mind for hygiene reasons. This exception does not remove the right to request inspection when the product is defective or the wrong item was delivered.",
+          "For a confirmed defect or a wrong item, Nava pays the return shipping cost. For an eligible change-of-mind return, the customer pays return shipping. A return is not approved automatically when a request is created."
+        ]
+      },
+      {
+        "heading": "2. Inspection, refunds and warranty",
+        "paragraphs": [
+          "The support team inspects a returned product within 3 business days of receiving it. After approval, the refund is initiated to the original payment method within 5 business days. Bank settlement time is outside this internal service target.",
+          "The standard limited hardware warranty lasts 12 months from the invoice date. Manufacturing faults are covered after inspection. Accidental impact, liquid damage and unauthorized repairs are excluded.",
+          "A warranty claim and a change-of-mind return are different processes. The 7-day return window does not shorten the 12-month warranty. The support team must not promise a replacement before the inspection result.",
+          "This policy does not define international returns, a lifetime warranty or compensation for lost business. Questions on those subjects must be escalated rather than answered from assumptions."
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "shipping_support.pdf",
+    "title": "Shipping and support service levels",
+    "pages": [
+      {
+        "heading": "1. Domestic delivery",
+        "paragraphs": [
+          "Nava ships completed paid orders within Iran only. For Tehran, delivery normally takes 1 to 2 business days after dispatch. For other covered Iranian cities, delivery normally takes 3 to 5 business days after dispatch.",
+          "Orders placed before 14:00 on a business day are targeted for same-day dispatch. Orders placed later are targeted for dispatch on the next business day. These are operational targets, not guaranteed delivery dates.",
+          "Public holidays and Friday are not counted as business days. The repository does not include a holiday calendar or live carrier tracking. The assistant must not calculate a guaranteed delivery date from these service levels.",
+          "The shipping price is shown at checkout. No fixed nationwide shipping fee, free-shipping threshold or international shipping price is specified in this document."
+        ]
+      },
+      {
+        "heading": "2. Contact and escalation",
+        "paragraphs": [
+          "Support operates from Saturday to Thursday, 09:00 to 18:00 Tehran time, excluding public holidays. The target for the first human response to a support ticket is 4 business hours during that schedule.",
+          "A customer contacting support should provide the order number rather than a database record identifier. Support can explain the published return and shipping policy, but payment disputes require finance-team review.",
+          "A reported delivery delay is reviewed by the shipping team. When carrier tracking data is unavailable, support should state that limitation instead of inventing a shipment status or a delivery commitment.",
+          "Escalation is a human process in this demo. The assistant cannot send tickets, change orders, issue refunds, access payment details or call an external carrier API."
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "sales_handbook.pdf",
+    "title": "Sales reporting and provisional reserve",
+    "pages": [
+      {
+        "heading": "1. Revenue definition and currency",
+        "paragraphs": [
+          "For this demo, sales revenue means the sum of item quantity multiplied by its historical unit price, minus the line-level discount, for completed orders. Cancelled orders are excluded unless a question explicitly asks about them.",
+          "The discount field stores the total discount for a complete order line. It must not be multiplied by quantity again. Revenue is derived from order items, not current product prices.",
+          "All sample amounts are integer Iranian rials, with currency code IRR. No implicit conversion to toman is permitted. Dates in the database use the Gregorian calendar in YYYY-MM-DD format.",
+          "Revenue does not include shipping, tax or post-sale refunds. The sample database has no costs or refund transactions. Therefore actual net profit and actual refund totals cannot be calculated from this dataset."
+        ]
+      },
+      {
+        "heading": "2. Provisional return reserve",
+        "paragraphs": [
+          "The provisional return reserve rate is 5% of completed-order sales revenue for the selected reporting period. Multiply the period revenue by the rate and divide by 100 to estimate the reserve.",
+          "The reserve is a planning estimate, not an observed refund amount, an accounting liability determination or an actual loss. It must be labelled provisional in the answer.",
+          "Monthly revenue growth is defined as the current month revenue minus the previous month revenue, divided by the previous month revenue, multiplied by 100. When the previous month revenue is zero, percentage growth is undefined and must not be reported as zero.",
+          "For a reserve or growth demonstration, extract the monetary amounts from the database and perform the final arithmetic with the Calculator Tool. Round displayed percentages to 2 decimal places and reserve amounts to whole rials."
+        ]
+      }
+    ]
+  }
+]

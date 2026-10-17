@@ -1,0 +1,9 @@
+-r requirements.lock
+charset-normalizer==3.4.7
+iniconfig==2.3.0
+packaging==25.0
+pillow==12.3.0
+pluggy==1.6.0
+pygments==2.20.0
+pytest==9.0.2
+reportlab==4.4.9
